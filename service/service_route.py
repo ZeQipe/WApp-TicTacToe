@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from service.presenter import handler_message
 
 app = Flask(__name__, template_folder="../view/templates", static_folder="../view/static/")
 
@@ -13,7 +14,7 @@ def service_route():
     if request.method == 'POST':
         message = request.json
         print(f'log:l15:service_route:message - {message}')
-        response = None
+        response = handler_message(message)
         print(f'log:l17:service_route:response - {response}')
         return jsonify(response)
 
