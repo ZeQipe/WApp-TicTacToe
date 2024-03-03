@@ -1,4 +1,3 @@
-from flask import jsonify, request
 from PySide6.QtCore import QObject, Signal
 from tools.sounds_settings import sound_settings_instance
 
@@ -18,7 +17,7 @@ request_handler = {
     'set_sound_effect': sound_settings_instance.set_sound_enabled,
     'set_sound_volume': sound_settings_instance.set_volume_level,
     'get_all_settings_sound': sound_settings_instance.get_all_settings,
-    
+
     'exit_app': exit_app_route
 }
 

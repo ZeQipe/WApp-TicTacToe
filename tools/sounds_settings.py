@@ -1,4 +1,3 @@
-from PySide6.QtMultimedia import QMediaPlayer
 import os
 
 
@@ -8,22 +7,21 @@ class SoundSettings:
         self.__sound_enabled = True
         self.__volume_level = 50
         self.__path_settings = SoundSettings.__set_path(os.environ.get('LOCALAPPDATA'))
-        self.__background_player = QMediaPlayer()
         SoundSettings.__load_setting(self)
-        if self.__background_music:
-            self.__background_player.play()
 
     def set_background_music(self):
         if self.__background_music:
             self.__background_music = False
-        else: self.__background_music = True
+        else:
+            self.__background_music = True
         SoundSettings.__save_setting(self)
         return ['true']
 
     def set_sound_enabled(self):
         if self.__sound_enabled:
             self.__sound_enabled = False
-        else: self.__sound_enabled = True
+        else:
+            self.__sound_enabled = True
         SoundSettings.__save_setting(self)
         return ['true']
 
@@ -45,11 +43,9 @@ class SoundSettings:
         return ['true']
 
     def get_all_settings(self):
-        print([f"{self.__background_music}", f"{self.__sound_enabled}", self.__volume_level])
         return [f"{self.__background_music}", f"{self.__sound_enabled}", self.__volume_level]
 
-    # saveloader settings
-
+    # save-loader settings
     def __load_setting(self):
         with open(self.__path_settings, 'r', encoding='utf-8') as file:
             data = file.read()
