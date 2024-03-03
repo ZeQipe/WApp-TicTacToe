@@ -45,7 +45,7 @@ class Match:
         match type_match:
             case 'single':
                 row, col = self.__opponent.make_move(self.__board.get_board())
-                if self.__board.make_move(row, col, self.__opponent.get_symbol())
+                if self.__board.make_move(row, col, self.__opponent.get_symbol()):
                     winner = self.__board.check_win(self.__player_figure)
                     full = self.__board.check_not_full()
                     if winner or full:
