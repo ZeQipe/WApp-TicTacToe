@@ -1,5 +1,6 @@
 from PySide6.QtCore import QObject, Signal
-from tools.sounds_settings import sound_settings_instance
+from tools.sounds_settings import sound_settings_instance as sound
+from service.service_match import ServiceMatch as match
 
 
 class SignalEmitter(QObject):
@@ -13,11 +14,17 @@ def exit_app_route():
 
 signal_emitter = SignalEmitter()
 request_handler = {
-    'set_background_music': sound_settings_instance.set_background_music,
-    'set_sound_effect': sound_settings_instance.set_sound_enabled,
-    'set_sound_volume': sound_settings_instance.set_volume_level,
-    'get_all_settings_sound': sound_settings_instance.get_all_settings,
+    'set_background_music': sound.set_background_music,
+    'set_sound_effect': sound.set_sound_enabled,
+    'set_sound_volume': sound.set_volume_level,
+    'get_all_settings_sound': sound.get_all_settings,
 
+    'create_match': match.create_match,
+    'get_move_player': match.get_move_player,
+    'get_move_opponent': match.get_move_opponent,
+    'restart_match': match.restart_match,
+    'close_match': match.close_match,
+    
     'exit_app': exit_app_route
 }
 

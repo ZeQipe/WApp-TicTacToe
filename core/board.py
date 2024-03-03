@@ -6,43 +6,35 @@ class Board:
     def get_board(self):
         return self.__board
 
-    def display_board(self):
-        # Отображение текущего состояния доски
-        for row in self.__board:
-            print('|'.join(row))
-            print('-----')
-
     def make_move(self, row, col, symbol):
-        # Совершение хода игроком
         if self.__board[row][col] == ' ':
             self.__board[row][col] = symbol
-            return ['true']
+            return True
         else:
-            return ["false"]
+            return False
 
-    def check_win(self, symbol):
+    def check_win(self, symbol) -> str or bool:
         # Проверяем по горизонталям
         for row in range(3):
             if self.__board[row][0] == self.__board[row][1] == self.__board[row][2] == symbol:
-                return [f'row_{row + 1}']
+                return f'row_{row + 1}'
 
         # Проверяем по вертикалям
         for col in range(3):
             if self.__board[0][col] == self.__board[1][col] == self.__board[2][col] == symbol:
-                return [f'column_{col + 1}']
+                return f'col_{col + 1}'
 
         # Проверяем диагонали
         if self.__board[0][0] == self.__board[1][1] == self.__board[2][2] == symbol:
-            return ['diagonal_1']
+            return 'diag_1'
         if self.__board[0][2] == self.__board[1][1] == self.__board[2][0] == symbol:
-            return ['diagonal_2']
+            return 'diag_2'
 
         # Если нет победителя
-        return ['false']
+        return False
 
-    def check_full(self):
-        # Проверка на заполненность доски
+    def check_not_full(self):
         for row in self.__board:
             if ' ' in row:
-                return ['false']
-        return ['true']
+                return True
+        return False

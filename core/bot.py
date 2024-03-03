@@ -1,23 +1,29 @@
 import random
+import time
 
 
 class Bot:
     def __init__(self, symbol):
-        self.symbol = symbol
+        self.__symbol = symbol
+
+    def get_symbol(self):
+        return self.__symbol
 
     def make_move(self, board):
+        # Имитируем мыслительный процесс
+        time.sleep(random.randint(1, 3))
         # Проверяем, есть ли возможность выиграть следующим ходом
         for row in range(3):
             for col in range(3):
                 if board[row][col] == ' ':
-                    board[row][col] = self.symbol
-                    if self._check_win(board, self.symbol):
+                    board[row][col] = self.__symbol
+                    if self._check_win(board, self.__symbol):
                         board[row][col] = ' '
                         return row, col
                     board[row][col] = ' '
 
         # Проверяем, есть ли у противника возможность выиграть следующим ходом и блокируем его
-        opponent_symbol = 'x'
+        opponent_symbol = 'x' if self.__symbol == 'y' else 'y'
         for row in range(3):
             for col in range(3):
                 if board[row][col] == ' ':
