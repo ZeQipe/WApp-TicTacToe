@@ -1,7 +1,7 @@
 import sys
-from flask import Flask
 from threading import Thread
 from view.window import WebAppWindow
+from service.service_route import start_flask
 from PySide6.QtWidgets import QApplication
 
 
@@ -11,12 +11,11 @@ class Application:
         self.window = None
 
     def run_server(self):
-        app = Flask(__name__, template_folder="../view/", static_folder="../view/static/")
-        app.run(use_reloader=False)
+        self.flask = start_flask()
 
     def start(self):
-        self.flask = Thread(target=self.run_server, daemon=True)
-        self.flask.start()
+        run = Thread(target=self.run_server, daemon=True)
+        run.start()
 
         main_window = QApplication(sys.argv)
         self.window = WebAppWindow()

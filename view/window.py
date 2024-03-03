@@ -1,7 +1,7 @@
-from PySide6.QtWidgets import QMainWindow, QApplication
+from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
-import sys
+
 
 class WebAppWindow(QMainWindow):
     def __init__(self):

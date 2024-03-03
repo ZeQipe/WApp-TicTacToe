@@ -1,8 +1,0 @@
-
-
-
-
-
-
-def shutdown():
-    pass
