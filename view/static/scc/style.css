@@ -1,0 +1,23 @@
+.primary {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    display: none;
+}
+
+#sayer {
+    position: absolute;
+    width: 400px;
+    top: 0;
+    right: 0px;
+}
+
+#startBtnPrimary {
+    display: block;
+    position: relative;
+    top: 270px;
+    margin: 0 auto;
+}

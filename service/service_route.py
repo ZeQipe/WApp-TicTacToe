@@ -8,12 +8,13 @@ def start_flask():
     return app
 
 
-@app.route('/service_worker_route', methods=['POST', 'GET'])
+@app.route('/service_worker_route', methods=['POST'])
 def service_route():
     if request.method == 'POST':
         message = request.json
-        print(message)
+        print(f'log:l15:service_route:message - {message}')
         response = None
+        print(f'log:l17:service_route:response - {response}')
         return jsonify(response)
 
 
