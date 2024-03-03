@@ -1,11 +1,39 @@
-.primary {
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fade-out 0.5s ease-out forwards;
+}
+
+.fade-in {
+    animation: fade-in 0.5s ease-in forwards;
+}
+
+#primary {
     position: fixed;
+    opacity: 1;
     width: 100%;
     height: 100%;
 }
 
-.main {
+#main {
     display: none;
+
 }
 
 #sayer {
@@ -20,4 +48,137 @@
     position: relative;
     top: 270px;
     margin: 0 auto;
+}
+
+#main-container  {
+    display: grid;
+    position: fixed;
+    top: 25%;
+    left: 15%;
+    width: 100%;
+}
+#multiplayer-menu{
+    display: grid;
+    position: fixed;
+    top: 32%;
+    left: 15%;
+    width: 100%;
+}
+
+#waiting-background {
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    width: 40%;
+}
+
+#back-btn-waiting {
+    position: absolute;
+    top: 73%;
+    left: 45%;
+    width: 11%;
+}
+
+#waiting-gif {
+    position: absolute;
+    top: 35%;
+    left: 43%;
+    width: 3.5%;
+}
+
+#decor-gif {
+    position: absolute;
+    top: 55%;
+    left: 44%;
+    width: 6%;
+}
+
+#sound-settings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    text-align: center;
+}
+
+#sound-settings img {
+    display: block;
+    margin: 0 auto;
+}
+
+#sound-checkbox {
+    position: absolute;
+    top: 22%;
+    right: 10%;
+    width: 25%;
+    cursor: pointer;
+}
+
+#backsounds-checkbox {
+    position: absolute;
+    top: 38%;
+    right: 10%;
+    width: 25%;
+    cursor: pointer;
+}
+
+#volume-slider {
+    position: absolute;
+    top: 66%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; 
+}
+
+#back-btn-sound-settings {
+    position: absolute;
+    top: 95%;
+    left: 21%;
+    width: 55%;
+}
+
+#search-session {
+    position:static;
+}
+
+#background-list {
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    width: 28%;
+    object-fit: cover;
+}
+
+#back-btn-search {
+    position: absolute;
+    left: 44.2%;
+    top: 67%;
+    width: 10%;
+}
+
+#session-container {
+    position: absolute;
+    top: 43%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    height: 275px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.180);
+}
+
+#session-list {
+    max-height: 300px;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Горизонтальные разделители между сессиями, требуют проверки */
+#session-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; 
 }

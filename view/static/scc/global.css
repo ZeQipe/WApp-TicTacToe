@@ -13,10 +13,4 @@ body {
 
 .game_button {
     width: 22%;
-    transition: transform 0.6s;
-    cursor: pointer;
-}
-
-.game_button:hover {
-    transform: scale(1.1);
 }

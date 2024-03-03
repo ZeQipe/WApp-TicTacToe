@@ -8,14 +8,58 @@
     <link rel="stylesheet" href="../static/scc/style.css">
 </head>
 <body>
-    <div class="primary">
+    <!-- Превью до открытия главного меню -->
+    <div id="primary">
         <img id="background" src="../static/resource/images/background_primary1.png" alt="Background_primary">
         <img id="sayer" src="../static/resource/images/sayer.png" alt="Primary">
         <img id="startBtnPrimary" class="game_button" src="../static/resource/images/start-btn-Image.png" alt="BTN-Start">
     </div>
-    <div class="main">
+     <!--Главный экран -->
+    <div id="main">
         <img id="background" src="../static/resource/images/background.png" alt="Background">
+        <audio id="background-audio" src="../static/resource/sounds/background_sounds.mp3" loop></audio>
+        <audio id="click-sound" src="../static/resource/sounds/click-btn.mp3"></audio>
+        <!-- Главное меню -->
+        <div id="main-container">
+            <img id="singleplayer-btn" class="game_button" src="../static/resource/images/singleplayer-image.png" alt="Singleplayer">
+            <img id="multiplayer-btn" class="game_button" src="../static//resource/images/multiplayer-image.png" alt="Multiplayer">
+            <img id="settings-btn" class="game_button" src="../static/resource/images/settings-image.png" alt="Settings">
+            <img id="exit-btn" class="game_button" src="../static/resource/images/exit-image.png" alt="Exit">
+        </div>
+        <!-- Меню звуковых настроек -->
+        <div id="sound-settings" style="display: none;">
+            <img src="../static/resource/images/sound_settings.png" alt="Sound Settings">
+            <img id="sound-checkbox" src="../static/resource/images/sound-true.png" alt="Sound Checkbox">
+            <img id="backsounds-checkbox" src="../static/resource/images/sound-true.png" alt="backsounds Checkbox">
+            <input type="range" id="volume-slider" min="0" max="100" step="5">
+            <img id="back-btn-sound-settings" class="game_button" src="../static/resource/images/back-image.png" alt="Back">
+        </div>
+        <!-- Меню мультиплеерного режима -->
+        <div id="multiplayer-menu", style="display: none;">
+            <img id="create-btn" class="game_button" src="../static/resource/images/create-match.png" alt="Create Match">
+            <img id="search-btn" class="game_button" src="../static/resource/images/search_image.png" alt="Search">
+            <img id="back-btn-multiplayer-menu" class="game_button" src="../static/resource/images/back-image.png" alt="Back">
+        </div>
+        <!-- Экран ожидания оппонента -->
+        <div id="waiting-screen" style="display: none;">
+            <img id="waiting-background" src="../static/resource/images/waiting_background.png" alt="Waiting Background">
+            <img id='decor-gif' src="../static/resource/images/decor.gif" alt="Decor">
+            <img id='waiting-gif' src="../static/resource/images/loading.gif" alt="Loading">
+            <img id="back-btn-waiting" class="game_button" src="../static/resource/images/back-image.png" alt="Back">
+        </div>
+        <!-- Список доступных сессий -->
+        <div id="search-session" style="display: none;">
+            <img id="background-list" class="background-listing" src="../static/resource/images/list_server.png" alt="List session">
+            <div id="session-container">
+                <ul id="session-list">
+                    <!-- Список сессий будет отображаться здесь -->
+                    <!-- Необходимо доработать -->
+                </ul>
+            </div>
+            <img id="back-btn-search" class="game_button" src="../static/resource/images/back-image.png" alt="Back">
+        </div>
     </div>
+
 
     <script type="module" src="../static/script/scripts.js"></script>
 </body>
