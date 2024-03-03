@@ -2,9 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arena</title>
+    <link rel="stylesheet" href="../static/scc/global.css">
+    <link rel="stylesheet" href="../static/scc/style-arena.css">
 </head>
 <body>
+    <img id="background" src="../static/resource/images/Abackground.png" alt="Background">
+    <img id="deka" src="../static/resource/images/Adeka.png" alt="deka">
+    <!-- Слоты для установки хода -->
+    <div class="img-slot">
+        <img id="slot-1" style="opacity: 0;" src="" alt="1">
+        <img id="slot-2" style="opacity: 0;" src="" alt="2">
+        <img id="slot-3" style="opacity: 0;" src="" alt="3">
+        <img id="slot-4" style="opacity: 0;" src="" alt="4">
+        <img id="slot-5" style="opacity: 0;" src="" alt="5">
+        <img id="slot-6" style="opacity: 0;" src="" alt="6">
+        <img id="slot-7" style="opacity: 0;" src="" alt="7">
+        <img id="slot-8" style="opacity: 0;" src="" alt="8">
+        <img id="slot-9" style="opacity: 0;" src="" alt="9">
+    </div>
+    <!-- Слот для победной комбинации -->
+    <div class="slot-winner">
+        <img id="slot-win" style="opacity: 0;" src="" alt="Winner line">
+    </div>
+    <!-- Кнопки для совершения хода -->
+    <div class="button-deck">
+        <button id="slot-btn-1" class="slot_button"></button>
+        <button id="slot-btn-2" class="slot_button"></button>
+        <button id="slot-btn-3" class="slot_button"></button>
+        <button id="slot-btn-4" class="slot_button"></button>
+        <button id="slot-btn-5" class="slot_button"></button>
+        <button id="slot-btn-6" class="slot_button"></button>
+        <button id="slot-btn-7" class="slot_button"></button>
+        <button id="slot-btn-8" class="slot_button"></button>
+        <button id="slot-btn-9" class="slot_button"></button>
+    </div>
+    <!-- Персонажи -->
+    <div class="interface">
+        <img id="helper" class="game_button" src="../static/resource/images/helper.png" alt="helper">
+        <img id="helper2" class="game_button" src="../static/resource/images/helper2.png" alt="helper2">
+    </div>
+    <!-- Персонаж сообщающий о победе -->
+    <div id="interface">
+        <img id="slot-winner-unit" src="../static/resource/images/winner-x.png" alt="Winner Unit">
+    </div>
+    <!-- Курсор на доске -->
+    <div class="interface" style="display: block;">
+        <div id="x">
+            <img id="cursor_x" src="../static/resource/images/cursor.png" alt="cursor">
+            <img id="current_x" src="../static/resource/images/figure/x (1).png" alt="x">
+        </div>
 
+        <div id="o">
+            <img id="cursor_o" src="../static/resource/images/cursor.png" alt="cursor">
+            <img id="current_o" src="../static/resource/images/plr-o/1.png" alt="o">
+        </div>
+    </div>
+    <!-- Кнопки для управления меню -->
+    <div id="interface-button" class="interface-buttons">
+        <img id="back-menu" class="game_button" src="../static/resource/images/back-image.png" alt="Return">
+        <img id="restart" class="game_button" src="../static/resource/images/restart-single.png" alt="Reset">
+    </div>
+
+    <script type="module" src="../static/scripts/script-arena.js"></script>
 </body>
 </html>

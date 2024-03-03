@@ -1,0 +1,118 @@
+#deka {
+    position: fixed;
+    top: 50%;
+    left: 75%;
+    width: 60%;
+    opacity: 0;
+    z-index: 0;
+    transform: translate(-50%, -50%) scale(1); 
+    animation: fade-in 3s forwards, move-left 3s forwards;
+    animation-delay: 2s
+}
+
+.button-deck {
+    position: absolute;
+    opacity: 0;
+    top: 23%;
+    left: 34.5%;
+    width: 32.8%;
+    height: 57%;
+    overflow-y: auto;
+}
+
+.button-deck > button {
+    opacity: 0;
+    width: 32%;
+    height: 32%;
+    float: left;
+    margin: 0px;
+}
+
+.slot-winner {
+    position: absolute;
+    top: 21%;
+    left: 34.5%;
+    width: 31.5%;
+    height: 59%;
+}
+
+.img-slot{
+    position: absolute;
+    top: 21%;
+    left: 34.5%;
+    width: 31.5%;
+    height: 59%;
+}
+
+.img-slot > img {
+    opacity: 1;
+    width: 32%;
+    height: 32%;
+    float: left; 
+    margin-top: 1px;
+    margin-left: 3px;
+}
+
+.interface {
+    opacity: 0;
+    animation: fade-in 1.5s forwards;
+    animation-delay: 5s
+}
+
+#helper {
+    position: absolute;
+    top: 40%;
+    width: 19.5%;
+}
+
+#helper2 {
+    position: absolute;
+    top: 32%;
+    left: 78%;
+    width: 27%;
+    z-index: 3;
+}
+
+.interface-buttons {
+    display: flex;
+    position: absolute ;
+    top: 83%;
+    left: 11%;
+    opacity: 0;
+    animation: fade-in 1.5s forwards;
+    animation-delay: 5s
+}
+
+.interface-buttons > img {
+    width: 29%;
+    margin-left: 25%;
+}
+
+#x {
+    display: grid;
+    position: absolute ;
+    top: 22%;
+    left: 25%;
+    width: 65px;
+}
+
+#x > img{
+    width: 65px;
+}
+
+#o {
+    display: none;
+    position: absolute;
+    width: 65px;
+    top: 22%;
+    right: 25%;
+}
+
+#o > img{
+    width: 65px;
+}
+
+#slot-winner-unit {
+    position: absolute;
+    display: none;
+}
