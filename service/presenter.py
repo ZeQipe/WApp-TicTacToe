@@ -1,6 +1,6 @@
 from PySide6.QtCore import QObject, Signal
 from tools.sounds_settings import sound_settings_instance as sound
-from service.service_match import ServiceMatch as match
+from service.service_match import ServiceMatch as SerMatch
 
 
 class SignalEmitter(QObject):
@@ -19,12 +19,14 @@ request_handler = {
     'set_sound_volume': sound.set_volume_level,
     'get_all_settings_sound': sound.get_all_settings,
 
-    'create_match': match.create_match,
-    'get_move_player': match.get_move_player,
-    'get_move_opponent': match.get_move_opponent,
-    'restart_match': match.restart_match,
-    'close_match': match.close_match,
-    
+    'create_match': SerMatch.create_match,
+    'set_player_figure': SerMatch.set_player_figure,
+    'info_match': SerMatch.get_info_match,
+    'move_player': SerMatch.get_move_player,
+    'move_opponent': SerMatch.get_move_opponent,
+    'restart_match': SerMatch.restart_match,
+    'close_match': SerMatch.close_match,
+
     'exit_app': exit_app_route
 }
 
@@ -40,11 +42,9 @@ def handler_message(message: list) -> list:
 
     if len(message) < 1:
         return ['error', 'Empty message']
-    print(message)
 
     key = message[0]
     args = message[1:] if len(message) > 1 else []
-    print(args)
     func = request_handler[key]
     if key not in request_handler:
         return ['error', f'Key "{key}" not found']

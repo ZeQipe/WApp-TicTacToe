@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 export function sendMessageModel(message) {
     const method = message.shift();
     return new Promise((resolve, reject) => {
-        fetch('/service_worker_route', {
+        fetch('http://127.0.0.1:5000/service_worker_route', {
             method: method,
             headers: {
                 'Content-Type': 'application/json'

@@ -31,7 +31,7 @@ class Board:
             return 'diag_2'
 
         # Если нет победителя
-        return False
+        return 'false'
 
     def check_not_full(self):
         for row in self.__board:

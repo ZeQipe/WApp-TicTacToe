@@ -9,6 +9,9 @@ class Bot:
     def get_symbol(self):
         return self.__symbol
 
+    def set_symbol(self, symbol):
+        self.__symbol = symbol
+
     def make_move(self, board):
         # Имитируем мыслительный процесс
         time.sleep(random.randint(1, 3))

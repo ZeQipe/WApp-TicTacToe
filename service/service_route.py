@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 from service.presenter import handler_message
+from flask_socketio import SocketIO, emit
+from service.service_match import ServiceMatch as SerMess
+
 
 app = Flask(__name__, template_folder="../view/templates", static_folder="../view/static/")
+socketio = SocketIO(app)
 
 
 def start_flask():
@@ -9,7 +13,7 @@ def start_flask():
     return app
 
 
-@app.route('/service_worker_route', methods=['POST'])
+@app.route('/service_worker_route' or 'arena/service_worker_route', methods=['POST'])
 def service_route():
     if request.method == 'POST':
         message = request.json

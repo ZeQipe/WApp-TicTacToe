@@ -52,6 +52,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('main-container').style.display = 'grid';
     })
 
+    document.getElementById('singleplayer-btn').addEventListener("click", function startMatch() {
+        sendMessageModel(['POST', 'create_match', 'single'])
+        .then(response => {
+            if (response[0] === 'true') {
+                document.body.style.transition = 'opacity 1s';
+                document.body.style.opacity = '0';
+
+                setTimeout(function() {
+                    // Переходим на страницу арены
+                    window.location.href = '/arena';
+                }, 1000);
+            } else {
+                console.log('Ошибка при создании матча.');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при создании матча:', error);
+        });
+    });
+
     document.getElementById('exit-btn').addEventListener('click', function() {
         const message = ['POST', 'exit_app'];
         sendMessageModel(message)
