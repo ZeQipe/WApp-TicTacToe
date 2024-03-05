@@ -96,5 +96,4 @@ class ServiceMatch:
         win = ServiceMatch.__match.get_win_combination()
         current_player = ServiceMatch.__match.get_current_player()
         index_img = random.randint(1, 20)
-        id_game = ServiceMatch.__match.get_lobby_id()
-        return ['true', current_player, index_img, index_slot, win, full, id_game]
+        return ['true', current_player, index_img, index_slot, win, full]

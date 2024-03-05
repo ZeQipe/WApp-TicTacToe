@@ -33,8 +33,8 @@ class Board:
         # Если нет победителя
         return 'false'
 
-    def check_not_full(self):
+    def check_full(self):
         for row in self.__board:
             if ' ' in row:
-                return True
-        return False
+                return False
+        return True

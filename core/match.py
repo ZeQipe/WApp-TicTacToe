@@ -40,7 +40,7 @@ class Match:
         self.__current_player = "x" if self.__current_player == 'o' else 'o'
 
     def get_board_is_not_full(self):
-        return self.__board.check_not_full()
+        return self.__board.check_full()
 
     def get_win_combination(self):
         return self.__board.check_win(self.__current_player)
