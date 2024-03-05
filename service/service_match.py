@@ -59,9 +59,9 @@ class ServiceMatch:
     @staticmethod
     def get_move_opponent():
         result = ServiceMatch.__match.set_opponent_move(ServiceMatch.__type)
-        if not result:
+        if not result[0]:
             return ['false']
-        index = ServiceMatch._get_index(result[0], result[1])
+        index = ServiceMatch._get_index(result[1], result[2])
         response = ServiceMatch._get_send_response(index)
         ServiceMatch.__match.switch_player()
         return response
@@ -81,6 +81,7 @@ class ServiceMatch:
     @staticmethod
     def _get_index(row, col) -> int:
         if 0 <= row <= 2 and 0 <= col <= 2:
+            print(row, col)
             return row * 3 + col + 1
 
     @staticmethod

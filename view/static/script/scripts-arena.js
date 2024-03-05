@@ -7,6 +7,7 @@ const buttonDeck = document.querySelectorAll('.slot_button');
 const interfaceButtons = document.querySelector('.interface-buttons');
 const helper = document.getElementById('helper');
 const helper2 = document.getElementById('helper2');
+const slotWin = document.getElementById('slot-win');
 const elementsToDarken = [
     document.getElementById('background'),
     document.getElementById('deka'),
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 } else if (typeMatch === 'single') {
                     console.log('Матч типа "single"');
-                    choicePlayerFigure();
+                    choicePlayerFigure(6000);
                 } else {
                     console.error('Неизвестный тип матча:', typeMatch);
                 }
@@ -45,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
-// Функции включения и отключения кнопок слотов
+// Функции кнопок
 function offButton() {
     buttonDeck.forEach(button => {
         button.disabled = true;
@@ -68,8 +69,44 @@ interfaceButtons.querySelectorAll('img').forEach(img => {
     img.style.pointerEvents = 'none';
 });
 
+document.getElementById('back-menu').addEventListener('click', function() {
+    sendMessageModel(['POST', 'close_match'])
+        .then(response => {
+            if (response[0] === 'true') {
+                console.log('Матч завершен. Перенаправляем пользователя на главную страницу.');
+                window.location.href = '/';
+        }})
+        .catch(error => {
+            console.error('Ошибка при закрытии матча:', error);
+        });
+})
+
+document.getElementById("restart").addEventListener('click', function() {
+    sendMessageModel(['POST', 'restart_match'])
+        .then(response => {
+            console.log('Матч перезапущен.');
+            interfaceButtons.style.transform = 'translate(0, 0) scale(1)';
+            for (let i = 1; i <= 9; i++) {
+                const slot = document.getElementById(`slot-${i}`);
+                slot.src = ''; // Очищаем содержимое слота
+                slot.style.opacity = 0;
+            
+            slotWin.src = ''
+            slotWin.style.opacity = 0;
+            
+            offButton()
+            choicePlayerFigure(200)
+            }
+            
+        })
+        .catch(error => {
+            console.error('Ошибка при перезапуске матча:', error);
+            // Возможно, здесь нужно предпринять какие-то действия в случае ошибки
+        });
+})
+
 //Выбор персонажа, если single match
-function choicePlayerFigure() {
+function choicePlayerFigure(time_slep) {
     console.log('Функция choicePlayerFigure вызвана.');
     setTimeout(() => {
 
@@ -91,7 +128,7 @@ function choicePlayerFigure() {
         helper2.addEventListener('mouseenter', seenterHelper2)
         helper2.addEventListener('mouseleave', leaverHelper2);
         helper2.addEventListener('click', clickHelper2);
-    }, 6000);
+    }, time_slep);
 }
 
 function seenterHelper() {
@@ -222,7 +259,10 @@ function getMoveOpponent() {
                 console.log('Ход оппонента успешно получен.');
                 const opponentIndex = response[3];
                 setFigureInSlot(opponentIndex, response[1], response[2]);
-                checkGameResult();
+                if (checkGameResult(response[4], response[5])) {
+                    return;
+                }
+
                 onButton()
             } else {
                 console.error('Ошибка при получении хода оппонента.');
@@ -233,7 +273,7 @@ function getMoveOpponent() {
         });
 }
 
-// Проверки на завершение игры
+// Установка хода
 function setFigureInSlot(indexSlot, currentFigure, indexImg) {
     console.log(`Устанавливаем картинку в слот ${indexSlot} для фигуры ${currentFigure}, индекс картинки: ${indexImg}`);
 
@@ -245,32 +285,44 @@ function setFigureInSlot(indexSlot, currentFigure, indexImg) {
     slot.style.opacity = '1';
 }
 
+// Проверка на завершение игры
 function checkGameResult(win, full) {
     console.log(`Проверяем результат игры: победная комбинация: ${win}, доска заполнена: ${full}`);
-
-    // Если доска заполнена, игра завершена
-    if (full === 'true') {
-        console.log('Доска заполнена. Игра завершена.');
-
-        const slotWin = document.querySelector('.slot-win');
-        const src = `../static/resource/images/winner_line/${win}.png`;
-
-        slotWin.src = src;
-        slotWin.style.transition = 'opacity 0.5s ease';
-        slotWin.style.opacity = '1';
-
-        return true;
-    }
 
     // Если есть победная комбинация, показываем соответствующую картинку
     if (win !== 'false') {
         console.log(`Найдена победная комбинация в слоте ${win}.`);
 
+        
+        const src = `../static/resource/images/winner_line/${win}.png`;
+        console.log(src)
+        console.log(slotWin)
+        
+        slotWin.src = src;
+        slotWin.style.transition = 'opacity 0.5s ease';
+        slotWin.style.opacity = '1';
+        shiftInterfaceButton()
         return true;
     }
+
+    // Если доска заполнена, игра завершена
+    if (full === 'true') {
+        console.log('Доска заполнена. Игра завершена.');
+        shiftInterfaceButton()
+        return true;
+    }
+
+
 
     // Если ни одно из условий не выполнено, игра продолжается
     console.log('Нет победной комбинации и доска не заполнена. Игра продолжается.');
     return false;
 }
 
+function shiftInterfaceButton() {
+    interfaceButtons.style.display = 'flex';
+    interfaceButtons.style.justifyContent = 'center';
+    interfaceButtons.style.alignItems = 'center';
+    interfaceButtons.style.transition = 'transform 0.5s ease'; // Плавный переход для свойства transform
+    interfaceButtons.style.transform = 'translate(5px, -45vh) scale(1.3)'; // Перемещение на половину высоты экрана вверх
+}

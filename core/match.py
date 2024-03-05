@@ -46,7 +46,7 @@ class Match:
         return self.__board.check_win(self.__current_player)
 
     def set_move_player(self, row, col):
-        return self.__board.make_move(row, col, self.__player_figure)
+        return self.__board.make_move(row, col, self.__current_player)
 
     def send_move(self, row, col):
         pass
@@ -55,7 +55,7 @@ class Match:
         match type_match:
             case 'single':
                 row, col = self.__opponent.make_move(self.__board.get_board())
-                return row, col
+                return self.__board.make_move(row, col, self.__current_player), row, col
 
             case 'server':
                 return True

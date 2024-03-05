@@ -4,11 +4,18 @@ class Board:
         self.__board = [[' ' for _ in range(3)] for _ in range(3)]
 
     def get_board(self):
-        return self.__board
+        copied_matrix = [[' ' for _ in range(3)] for _ in range(3)]
+
+        for i in range(3):
+            for j in range(3):
+                copied_matrix[i][j] = self.__board[i][j]
+
+        return copied_matrix
 
     def make_move(self, row, col, symbol):
         if self.__board[row][col] == ' ':
             self.__board[row][col] = symbol
+            print(self.__board)
             return True
         else:
             return False

@@ -28,11 +28,11 @@
     margin: 0px;
 }
 
-.slot-winner {
+#slot-win {
     position: absolute;
     top: 21%;
     left: 34.5%;
-    width: 31.5%;
+    width: 33%;
     height: 59%;
 }
 
@@ -79,6 +79,7 @@
     top: 83%;
     left: 11%;
     opacity: 0;
+    z-index: 3;
     animation: fade-in 1.5s forwards;
     animation-delay: 5s
 }
@@ -86,6 +87,12 @@
 .interface-buttons > img {
     width: 29%;
     margin-left: 25%;
+}
+
+.shift {
+    top: 50%;
+    left: 3.6%;
+    width: 70%;
 }
 
 #x {
