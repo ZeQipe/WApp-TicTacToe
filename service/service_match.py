@@ -20,9 +20,12 @@ class ServiceMatch:
 
     @staticmethod
     def set_player_figure(figure):
-        ServiceMatch.__match.set_player_figure(figure[0])
-        ServiceMatch.__match.set_opponent('single')
-        return ['true', ServiceMatch.__match.get_current_player()]
+        if not ServiceMatch.__match.get_player_figure():
+            ServiceMatch.__match.set_player_figure(figure[0])
+            ServiceMatch.__match.set_opponent('single')
+            return ['true', ServiceMatch.__match.get_current_player()]
+        else:
+            return ['false']
 
     @staticmethod
     def get_info_match():
