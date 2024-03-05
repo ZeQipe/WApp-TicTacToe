@@ -3,11 +3,14 @@ import { sendMessageModel } from "./lib.js";
 // Константы
 var cursorX = ''
 var cursorO = ''
+const winnerImage = document.getElementById('slot-winner-unit');
 const buttonDeck = document.querySelectorAll('.slot_button');
 const interfaceButtons = document.querySelector('.interface-buttons');
 const helper = document.getElementById('helper');
 const helper2 = document.getElementById('helper2');
 const slotWin = document.getElementById('slot-win');
+const deka_cursorX = document.getElementById('x');
+const deka_cursorO = document.getElementById('o');
 const elementsToDarken = [
     document.getElementById('background'),
     document.getElementById('deka'),
@@ -15,9 +18,20 @@ const elementsToDarken = [
     document.getElementById('interface-button')
 ]
 offButton()
+toggleCursor()
+
+function toggleCursor() {
+    if (deka_cursorX.style.display === 'grid') {
+        deka_cursorX.style.display = 'none';
+        deka_cursorO.style.display = 'grid';
+    } else {
+        deka_cursorX.style.display = 'grid';
+        deka_cursorO.style.display = 'none';
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Получение информации о матче
     sendMessageModel(['POST', 'info_match'])
         .then(data => {
             console.log('Информация о матче получена:', data);
@@ -88,11 +102,15 @@ document.getElementById("restart").addEventListener('click', function() {
             interfaceButtons.style.transform = 'translate(0, 0) scale(1)';
             for (let i = 1; i <= 9; i++) {
                 const slot = document.getElementById(`slot-${i}`);
-                slot.src = ''; // Очищаем содержимое слота
+                slot.style.transition = 'opacity 0s';
                 slot.style.opacity = 0;
+                slot.src = ''; 
             
-            slotWin.src = ''
+            slotWin.style.transition = 'opacity 0s';
             slotWin.style.opacity = 0;
+            slotWin.src = ''
+            winnerImage.style.transition = 'transform 2.5s ease'; 
+            winnerImage.style.transform = 'translate(0px, 60vh) ';
             
             offButton()
             choicePlayerFigure(200)
@@ -101,7 +119,6 @@ document.getElementById("restart").addEventListener('click', function() {
         })
         .catch(error => {
             console.error('Ошибка при перезапуске матча:', error);
-            // Возможно, здесь нужно предпринять какие-то действия в случае ошибки
         });
 })
 
@@ -235,10 +252,11 @@ function movePlayer(index) {
                 console.log('Ход игрока успешно совершен.');
 
                 setFigureInSlot(index, response[1], response[2])
-                if (checkGameResult(response[4], response[5])) {
+                if (checkGameResult(response[4], response[5], response[1])) {
                     return;
                 }
 
+                toggleCursor()
                 getMoveOpponent();
             } else {
                 console.error('Ошибка при совершении хода игрока.');
@@ -252,6 +270,7 @@ function movePlayer(index) {
         });
 }
 
+// Ход оппонента
 function getMoveOpponent() {
     sendMessageModel(['POST', 'move_opponent'])
         .then(response => {
@@ -259,10 +278,11 @@ function getMoveOpponent() {
                 console.log('Ход оппонента успешно получен.');
                 const opponentIndex = response[3];
                 setFigureInSlot(opponentIndex, response[1], response[2]);
-                if (checkGameResult(response[4], response[5])) {
+                if (checkGameResult(response[4], response[5], response[1])) {
                     return;
                 }
 
+                toggleCursor()
                 onButton()
             } else {
                 console.error('Ошибка при получении хода оппонента.');
@@ -286,7 +306,7 @@ function setFigureInSlot(indexSlot, currentFigure, indexImg) {
 }
 
 // Проверка на завершение игры
-function checkGameResult(win, full) {
+function checkGameResult(win, full, figure) {
     console.log(`Проверяем результат игры: победная комбинация: ${win}, доска заполнена: ${full}`);
 
     // Если есть победная комбинация, показываем соответствующую картинку
@@ -302,6 +322,7 @@ function checkGameResult(win, full) {
         slotWin.style.transition = 'opacity 0.5s ease';
         slotWin.style.opacity = '1';
         shiftInterfaceButton()
+        manageWinnerImage(figure)
         return true;
     }
 
@@ -309,10 +330,9 @@ function checkGameResult(win, full) {
     if (full === 'true') {
         console.log('Доска заполнена. Игра завершена.');
         shiftInterfaceButton()
+        manageWinnerImage('none')
         return true;
     }
-
-
 
     // Если ни одно из условий не выполнено, игра продолжается
     console.log('Нет победной комбинации и доска не заполнена. Игра продолжается.');
@@ -323,6 +343,24 @@ function shiftInterfaceButton() {
     interfaceButtons.style.display = 'flex';
     interfaceButtons.style.justifyContent = 'center';
     interfaceButtons.style.alignItems = 'center';
-    interfaceButtons.style.transition = 'transform 0.5s ease'; // Плавный переход для свойства transform
-    interfaceButtons.style.transform = 'translate(5px, -45vh) scale(1.3)'; // Перемещение на половину высоты экрана вверх
+    interfaceButtons.style.transition = 'transform 0.5s ease'; 
+    interfaceButtons.style.transform = 'translate(5px, -45vh) scale(1.3)';
+}
+
+function manageWinnerImage(winnerFigure) {
+    console.log('winnerFigure')
+    console.log()
+    var src = ''
+    if (winnerFigure === 'x') {
+        src = '../static/resource/images/winner-x.png';
+    } else if (winnerFigure === 'o') {
+        src = '../static/resource/images/winner-o.png';
+    } else {
+        src = '../static/resource/images/winner-none.png';
+    }
+    console.log(src)
+
+    winnerImage.src = src
+    winnerImage.style.transition = 'transform 2.5s ease'; 
+    winnerImage.style.transform = 'translate(0px, -60vh) ';
 }

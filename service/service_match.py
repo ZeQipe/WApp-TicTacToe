@@ -1,5 +1,4 @@
 import random
-
 from core.match import Match
 
 
