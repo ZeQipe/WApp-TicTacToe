@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "PROJECT_ID_HERE",
+    "private_key_id": "YOUR_KEY_ID_HERE",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----\n",
+    "client_email": "YUORCLIENTE_MAIL_HERE",
+    "client_id": "YOUR_ID_HERE",
+    "auth_uri": "https://accounts.google.com/...",
+    "token_uri": "https://.../token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/...",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/...",
+    "universe_domain": "googleapis.com"
+  }
+  
