@@ -3,6 +3,7 @@ import { sendMessageModel } from "./lib.js";
 // Константы
 var cursorX = ''
 var cursorO = ''
+var status = false
 const winnerImage = document.getElementById('slot-winner-unit');
 const buttonDeck = document.querySelectorAll('.slot_button');
 const interfaceButtons = document.querySelector('.interface-buttons');
@@ -96,30 +97,24 @@ document.getElementById('back-menu').addEventListener('click', function() {
 })
 
 document.getElementById("restart").addEventListener('click', function() {
-    sendMessageModel(['POST', 'restart_match'])
-        .then(response => {
-            console.log('Матч перезапущен.');
-            interfaceButtons.style.transform = 'translate(0, 0) scale(1)';
-            for (let i = 1; i <= 9; i++) {
-                const slot = document.getElementById(`slot-${i}`);
-                slot.style.transition = 'opacity 0s';
-                slot.style.opacity = 0;
-                slot.src = ''; 
-            
-            slotWin.style.transition = 'opacity 0s';
-            slotWin.style.opacity = 0;
-            slotWin.src = ''
-            winnerImage.style.transition = 'transform 2.5s ease'; 
-            winnerImage.style.transform = 'translate(0px, 60vh) ';
-            
-            offButton()
-            choicePlayerFigure(200)
-            }
-            
-        })
-        .catch(error => {
-            console.error('Ошибка при перезапуске матча:', error);
-        });
+    status = false
+    console.log('Матч перезапущен.');
+    interfaceButtons.style.transform = 'translate(0, 0) scale(1)';
+    offButton()
+    choicePlayerFigure(1000)    
+    sendMessageModel(['POST', 'restart_match'])    
+    for (let i = 1; i <= 9; i++) {
+        const slot = document.getElementById(`slot-${i}`);
+        slot.style.transition = 'opacity 0s';
+        slot.style.opacity = 0;
+        slot.src = ''; 
+    } 
+    slotWin.style.transition = 'opacity 0s';
+    slotWin.style.opacity = 0;
+    slotWin.src = ''
+    winnerImage.style.transition = 'transform 2.5s ease'; 
+    winnerImage.style.transform = 'translate(0px, 60vh) ';
+
 })
 
 //Выбор персонажа, если single match
@@ -234,6 +229,7 @@ function setFigurePlayer(figure) {
             } else {
                 console.error('Ошибка: установка фигуры не удалась.');
             }
+            status = true
         })
         .catch(error => {
             console.error('Ошибка при установке фигуры:', error);
@@ -274,7 +270,7 @@ function movePlayer(index) {
 function getMoveOpponent() {
     sendMessageModel(['POST', 'move_opponent'])
         .then(response => {
-            if (response[0] === 'true') {
+            if (response[0] === 'true' && status === true) {
                 console.log('Ход оппонента успешно получен.');
                 const opponentIndex = response[3];
                 setFigureInSlot(opponentIndex, response[1], response[2]);
