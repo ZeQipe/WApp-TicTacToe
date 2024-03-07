@@ -19,10 +19,9 @@ const elementsToDarken = [
     document.getElementById('interface-button')
 ]
 offButton()
-toggleCursor()
 
-function toggleCursor() {
-    if (deka_cursorX.style.display === 'grid') {
+function toggleCursor(current_figure) {
+    if (current_figure === 'x') {
         deka_cursorX.style.display = 'none';
         deka_cursorO.style.display = 'grid';
     } else {
@@ -113,7 +112,7 @@ document.getElementById("restart").addEventListener('click', function() {
     slotWin.style.opacity = 0;
     slotWin.src = ''
     winnerImage.style.transition = 'transform 2.5s ease'; 
-    winnerImage.style.transform = 'translate(0px, 60vh) ';
+    winnerImage.style.transform = 'translate(0px, 60vh) '; 
 
 })
 
@@ -221,6 +220,7 @@ function setFigurePlayer(figure) {
             if (response[0] === 'true') {
                 console.log('Установка фигуры прошла успешно.');
                 resetInterface();
+                toggleCursor('o')
                 if (figure === 'x') {
                     onButton()
                 } else {
@@ -252,7 +252,6 @@ function movePlayer(index) {
                     return;
                 }
 
-                toggleCursor()
                 getMoveOpponent();
             } else {
                 console.error('Ошибка при совершении хода игрока.');
@@ -278,7 +277,6 @@ function getMoveOpponent() {
                     return;
                 }
 
-                toggleCursor()
                 onButton()
             } else {
                 console.error('Ошибка при получении хода оппонента.');
@@ -299,6 +297,7 @@ function setFigureInSlot(indexSlot, currentFigure, indexImg) {
     slot.src = src;
     slot.style.transition = 'opacity 0.2s ease';
     slot.style.opacity = '1';
+    toggleCursor(currentFigure)
 }
 
 // Проверка на завершение игры
