@@ -15,7 +15,7 @@ class Match:
 
     def set_opponent(self, type_match):
         if type_match == 'single':
-            self.__opponent = Bot('o')
+            self.__opponent = Bot(self.__player_figure)
         elif type_match == 'server':
             self.__opponent = 'Client'
             self.__player_figure = 'x'
